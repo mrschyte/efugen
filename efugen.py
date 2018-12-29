@@ -39,12 +39,12 @@ def parwalk(paths, nthreads=4):
         while not results.empty():
             yield results.get()
 
-        # avoid excessive locking
-        time.sleep(1)
-
         with tasks.all_tasks_done:
             if not tasks.unfinished_tasks:
                 break
+
+        # avoid excessive locking
+        time.sleep(1)
 
 def efugen(threads, paths, relpath, prepend, output):
     def convtime(ns):
